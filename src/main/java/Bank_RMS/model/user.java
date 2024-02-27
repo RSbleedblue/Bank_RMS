@@ -1,8 +1,10 @@
 package Bank_RMS.model;
 
+import org.springframework.data.annotation.Id;
 public class user {
     private String firstname;
     private String lastname;
+    @Id
     private String username;
     private String AccountType;
     private String password;
