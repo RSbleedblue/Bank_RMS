@@ -15,7 +15,6 @@ public class userController {
     }
     @PostMapping("/api/register")
     public user createUser(@RequestBody user newUser){
-        System.out.println(newUser.getFirstname());
         return userRepo.save(newUser);
     }
     @GetMapping("/api/users")
