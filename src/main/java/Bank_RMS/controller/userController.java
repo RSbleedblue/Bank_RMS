@@ -2,9 +2,15 @@ package Bank_RMS.controller;
 
 import Bank_RMS.model.user;
 import Bank_RMS.repository.userRepo;
+import jakarta.validation.Valid;
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class userController {
@@ -13,14 +19,32 @@ public class userController {
     public userController(userRepo userRepo) {
         this.userRepo = userRepo;
     }
+
     @PostMapping("/api/register")
-    public user createUser(@RequestBody user newUser){
-        System.out.println(newUser.getFirstname());
+    public user createUser(@RequestBody user newUser) {
+        String hashedPassword = BCrypt.hashpw(newUser.getPassword(),BCrypt.gensalt());
+        newUser.setPassword(hashedPassword);
         return userRepo.save(newUser);
     }
+
     @GetMapping("/api/users")
-    public List<user> getUsers(){
-        List<user> users = userRepo.findAll();
-        return users;
+    public List<user> getUsers() {
+        return userRepo.findAll();
+    }
+    @PostMapping("/api/login")
+    public ResponseEntity<Map<String,String>> loginUser(@RequestBody @Valid user userDetail) {
+
+        user userFound = userRepo.findByUsername(userDetail.getUsername());
+        Map<String,String> response = new HashMap<>();
+        if(userFound == null){
+            response.put("message","Not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+        if(BCrypt.checkpw(userDetail.getPassword(), userFound.getPassword())){
+            response.put("message","User Found! with FirstName as: "+userFound.getFirstname());
+            return ResponseEntity.ok(response);
+        }
+        response.put("message","Invalid user name or password");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 }
