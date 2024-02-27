@@ -13,14 +13,15 @@ public class userController {
     public userController(userRepo userRepo) {
         this.userRepo = userRepo;
     }
+
     @PostMapping("/api/register")
-    public user createUser(@RequestBody user newUser){
+    public user createUser(@RequestBody user newUser) {
         System.out.println(newUser.getFirstname());
         return userRepo.save(newUser);
     }
+
     @GetMapping("/api/users")
-    public List<user> getUsers(){
-        List<user> users = userRepo.findAll();
-        return users;
+    public List<user> getUsers() {
+        return userRepo.findAll();
     }
 }
