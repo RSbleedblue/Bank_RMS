@@ -2,14 +2,9 @@ package Bank_RMS.controller;
 
 import Bank_RMS.model.user;
 import Bank_RMS.repository.userRepo;
-import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class userController {
