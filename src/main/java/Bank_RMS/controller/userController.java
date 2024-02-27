@@ -28,10 +28,8 @@ public class userController {
 
     @GetMapping("/api/users")
     public List<user> getUsers() {
-        List<user> users = userRepo.findAll();
-        return users;
+        return userRepo.findAll();
     }
-
     @PostMapping("/api/login")
     public ResponseEntity<Map<String,String>> loginUser(@RequestBody user userDetail) {
 

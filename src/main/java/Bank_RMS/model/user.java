@@ -11,5 +11,4 @@ public class user {
     private String username;
     private String AccountType;
     private String password;
-
 }
