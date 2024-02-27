@@ -2,9 +2,15 @@ package Bank_RMS.controller;
 
 import Bank_RMS.model.user;
 import Bank_RMS.repository.userRepo;
+import jakarta.validation.Valid;
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class userController {
@@ -26,7 +32,7 @@ public class userController {
         return userRepo.findAll();
     }
     @PostMapping("/api/login")
-    public ResponseEntity<Map<String,String>> loginUser(@RequestBody user userDetail) {
+    public ResponseEntity<Map<String,String>> loginUser(@RequestBody @Valid user userDetail) {
 
         user userFound = userRepo.findByUsername(userDetail.getUsername());
         Map<String,String> response = new HashMap<>();
