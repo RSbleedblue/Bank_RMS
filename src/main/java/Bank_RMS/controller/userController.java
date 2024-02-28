@@ -24,6 +24,7 @@ public class userController {
     public user createUser(@RequestBody user newUser) {
         String hashedPassword = BCrypt.hashpw(newUser.getPassword(),BCrypt.gensalt());
         newUser.setPassword(hashedPassword);
+
         return userRepo.save(newUser);
     }
 
