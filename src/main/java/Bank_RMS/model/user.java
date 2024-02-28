@@ -1,59 +1,28 @@
 package Bank_RMS.model;
 
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
+
+@Document(collection = "user")
+@Getter @Setter
 public class user {
+    @Id
+    private String id;
+    @NotNull(message = "FirstName cannot be null.")
     private String firstname;
+    @NotNull(message = "LastName cannot be null.")
     private String lastname;
+    @NotNull(message = "Username cannot be null.")
     private String username;
+    @NotNull(message = "AccountType cannot be null.")
     private String AccountType;
+    @NotNull(message = "Password cannot be null.")
     private String password;
-    public user(){
-    }
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-    public String getAccountType() {
-        return AccountType;
-    }
-
-    public void setAccountType(String accountType) {
-        AccountType = accountType;
-    }
-    @Override
-    public String toString() {
-        return "user{" +
-                "firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", username='" + username + '\'' +
-                ", AccountType='" + AccountType + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+    @NotNull(message = "DOB cannot be null.")
+    private Date dob;
 }
